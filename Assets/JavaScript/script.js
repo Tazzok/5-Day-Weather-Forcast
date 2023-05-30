@@ -10,7 +10,7 @@ var getLatLon= function(event){
     event.preventDefault();
 
     var city = cityInput.value.trim();
-    var apiURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+ city +'&limit=1&appid=9a565ccb47007a77932708dccfc031dd';
+    var apiURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=9a565ccb47007a77932708dccfc031dd`;
   
     fetch(apiURL)
         .then(function (response) {
@@ -29,16 +29,17 @@ var getLatLon= function(event){
 
 var currentW =function(){
     
-    var apiURL = 'https://api.openweathermap.org/data/2.5/weather?lat='+cityLat+'&lon='+cityLon+'&units=imperial&lastupdate&appid=9a565ccb47007a77932708dccfc031dd';
+    var apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&units=imperial&lastupdate&appid=9a565ccb47007a77932708dccfc031dd`;
 
     fetch(apiURL)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
+            console.log(data);
             var CityName=data.name;
             var todaysDate=new Date(data.dt*1000);
-            
+            var curIcon = data.weather[0].icon;
             var curTemp=Math.round(data.main.temp);
             var curWind=Math.round(data.wind.speed);
             var curHumidity=Math.round(data.main.humidity);
@@ -50,14 +51,16 @@ var currentW =function(){
             var temp=document.createElement('p');
             var wind=document.createElement('p');
             var humidity=document.createElement('p');
+            var icon = document.createElement('img');
 
+            icon.setAttribute('src', `https://openweathermap.org/img/wn/${curIcon}.png`)
             name.textContent = CityName +' ('+todaysDate.toDateString()+')';
             temp.textContent = "Temp: "+curTemp;
             wind.textContent = "Wind Speed: "+curWind+"MPH";
             humidity.textContent = "Humidity: "+curHumidity+'%';
             
             current.appendChild(currBody);
-            currBody.append(name, temp, wind, humidity);
+            currBody.append(name,icon, temp, wind, humidity);
             cityInfo.appendChild(current);
         })
 };
@@ -67,7 +70,7 @@ var currentW =function(){
 
 var FiveDayForecast= function(){
 
-    var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityLat+'&lon='+cityLon+'&units=imperial&appid=9a565ccb47007a77932708dccfc031dd';
+    var apiURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=9a565ccb47007a77932708dccfc031dd`;
 
     fetch(apiURL)
     .then(function(response) {
@@ -76,14 +79,17 @@ var FiveDayForecast= function(){
       .then(function(data) {
         console.log(data);
 
+
+
         
 
-        for (let i = 0; i < data.list.length; i++) {
+        for (let i = 0; i < data.list.length; i+=8) {
 
             var avgTemp = data.list[i].main.temp;
             var avgHumid= data.list[i].main.humidity;
             var avgWind= data.list[i].wind.speed;
             var todaysDate=new Date(data.list[i].dt*1000);
+            var curIcon = data.list[i].weather[0].icon
 
 
             var cardEl=document.createElement('div');
@@ -94,9 +100,10 @@ var FiveDayForecast= function(){
             var temp = document.createElement('p');
             var wind = document.createElement('p');
             var humidity = document.createElement('p');
+            var icon = document.createElement('img');
 
 
-            
+            icon.setAttribute('src', `https://openweathermap.org/img/wn/${curIcon}.png`)
             cardEl.className = 'card mb-3 col - 12 col - xl';
             cardBody.className = 'card-body';
             title.className = 'card-title';
@@ -109,8 +116,9 @@ var FiveDayForecast= function(){
             wind.textContent = "Wind Speed: "+avgWind+"MPH";
             humidity.textContent = "Humidity: "+avgHumid+'%';
 
-            cardBody.append(date, temp, wind, humidity);
-            fiveDay.appendChild(cardBody);
+            cardEl.appendChild(cardBody);
+            cardBody.append(date,icon, temp, wind, humidity);
+            fiveDay.appendChild(cardEl);
       
         }
 
