@@ -95,6 +95,7 @@ var FiveDayForecast= function(){
                 avgHumid+=data.list[element].main.humidity;
                 avgWind+=data.list[element].wind.speed;
                 count++;
+                console.log(count);
             };
 
 
