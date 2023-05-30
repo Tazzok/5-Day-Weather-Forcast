@@ -90,18 +90,16 @@ var FiveDayForecast= function(){
 
             if(date!=compDate ){
                 avgTemp+=data.list[i].main.temp
-                console.log("if");
                 console.log(avgTemp/count);
                 console.log("new day");
                 avgTemp=0;
                 count=0;
             }
-            else if(date == compDate )
+            else if(date == compDate)
             {
                 avgTemp+=data.list[i].main.temp
-                console.log("if");
             }
-            else{
+            else if(i == data.list.length-1){
                 console.log("else");
                 console.log(avgTemp/count);
                 console.log("new day");
