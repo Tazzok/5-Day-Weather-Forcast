@@ -6,12 +6,13 @@ var preSearched = document.querySelector('#searched');
 
 var cityLat = 0;
 var cityLon = 0;
-let searchedCity = {lat: 0,lon: 0};
+let searchedCity = { lat: 0, lon: 0 };
 
 
 var getLatLon = function (event) {
     event.preventDefault();
     var city = cityInput.value.trim();
+    
 
     var apiURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=9a565ccb47007a77932708dccfc031dd`;
 
@@ -23,9 +24,10 @@ var getLatLon = function (event) {
             cityLat = data[0].lat;
             cityLon = data[0].lon;
 
-            searchedCity.lat=cityLat;
-            searchedCity.lon=cityLat
+            searchedCity.lat = cityLat;
+            searchedCity.lon = cityLon;
             localStorage.setItem(city, JSON.stringify(searchedCity));
+            previousSearches();
             currentW();
             FiveDayForecast();
         })
@@ -133,18 +135,29 @@ var FiveDayForecast = function () {
 
 
 
-var previousSearches = function(){
-    
+var previousSearches = function () {
+    preSearched.innerHTML=' ';
 
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        var cityButton = document.createElement("button");
+        cityButton.textContent = key;
+        cityButton.className = "btn btn-primary btn-lg ";
+        cityButton.id = `${key}`;
+        cityButton.addEventListener('click', function (event) {
+            buttonID=event.target.id;
+            var info = JSON.parse(localStorage.getItem(buttonID))
+            console.log(info);
+            cityLat = info.lat;
+            cityLon = info.lon;
+            console.log(cityLat);
+            console.log(cityLon);
 
-        for (var i = 0; i < 3; i++) {
-            var key = localStorage.key(i);
-            var p = document.createElement("p");
-            p.textContent = key;
-            preSearched.appendChild(p);
-        }
- 
-    
+            currentW();
+            FiveDayForecast();
+        });
+        preSearched.appendChild(cityButton);
+    }
 };
 
 
@@ -155,10 +168,6 @@ var previousSearches = function(){
 
 
 
-
-
-
 previousSearches();
-
 searchForm.addEventListener('submit', getLatLon);
 
