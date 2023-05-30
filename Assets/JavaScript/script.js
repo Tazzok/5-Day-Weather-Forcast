@@ -17,7 +17,6 @@ var getLatLon= function(event){
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             cityLat = data[0].lat;
             cityLon = data[0].lon;
             currentW();
@@ -25,7 +24,6 @@ var getLatLon= function(event){
         })
 
 };
-
 
 var currentW =function(){
     
@@ -54,13 +52,14 @@ var currentW =function(){
             var icon = document.createElement('img');
 
             icon.setAttribute('src', `https://openweathermap.org/img/wn/${curIcon}.png`)
-            name.textContent = CityName +' ('+todaysDate.toDateString()+')';
+            name.textContent = CityName +' ('+ dayjs(todaysDate).format('dddd MMM D')+')';
+
             temp.textContent = "Temp: "+curTemp;
             wind.textContent = "Wind Speed: "+curWind+"MPH";
             humidity.textContent = "Humidity: "+curHumidity+'%';
             
             current.appendChild(currBody);
-            currBody.append(name,icon, temp, wind, humidity);
+            currBody.append(name, icon, temp, wind, humidity);
             cityInfo.appendChild(current);
         })
 };
@@ -79,9 +78,10 @@ var FiveDayForecast= function(){
       .then(function(data) {
         console.log(data);
 
-
-
-        
+        var title=document.createElement('h3');
+        title.className = 'card-title';
+        title.textContent="5-Day Forecast:"
+        fiveDay.appendChild(title);
 
         for (let i = 0; i < data.list.length; i+=8) {
 
@@ -104,74 +104,24 @@ var FiveDayForecast= function(){
 
 
             icon.setAttribute('src', `https://openweathermap.org/img/wn/${curIcon}.png`)
-            cardEl.className = 'card mb-3 col - 12 col - xl';
-            cardBody.className = 'card-body';
+            cardEl.className = 'card col - 12 col - xl no-gutters';
+            cardBody.className = 'card-body bg-info';
             title.className = 'card-title';
             cardText.className = 'card-text';
             
 
             title.textContent="5-Day Forecast:"
-            date.textContent =  todaysDate.toDateString();
+            date.textContent =  dayjs(todaysDate).format('dddd');
             temp.textContent = "Temp: "+avgTemp;
             wind.textContent = "Wind Speed: "+avgWind+"MPH";
             humidity.textContent = "Humidity: "+avgHumid+'%';
 
+            
             cardEl.appendChild(cardBody);
             cardBody.append(date,icon, temp, wind, humidity);
             fiveDay.appendChild(cardEl);
       
         }
-
-
-
-
-
-
-        //h3 5-Day Forecast:
-
-        //card
-        //date
-        //symbol
-        //temp
-        //wind
-        //humidity
-
-
-
-
-
-
-
-
-        // data.list.length-1
-
-        // for (let i = 0; i < 38 ; i++) {
-        //     var date = new Date(data.list[i].dt*1000).toDateString();
-        //     var compDate = new Date(data.list[i+1].dt*1000).toDateString();
-
-        //     console.log(date);
-        //     console.log(compDate);
-
-        //     if(date == compDate){
-
-        //         avgTemp+=data.list[i].main.temp;
-
-        //     }
-        //     else{
-        //         avgTemp+=data.list[i].main.temp;
-        //         console.log("else");
-        //         console.log(avgTemp/count);
-        //         console.log("new day");
-        //         avgTemp=0;
-        //         count=0;
-
-        //     }
-        //     count++;
-
-
-        // };
-
-
 
       });
     };
@@ -182,104 +132,3 @@ var FiveDayForecast= function(){
 
 searchForm.addEventListener('submit', getLatLon);
   
-
-
-
-
-
-
-
-
-// var handleSearch = function(event) {
-//   event.preventDefault();
-  
-//   var apiURL = 'http://api.openweathermap.org/data/2.5/forecast?lat='+cityLat+'&lon='+cityLon+'&units=imperial&appid=9a565ccb47007a77932708dccfc031dd';
-
-//   fetch(apiURL)
-//     .then(function(response) {
-//       return response.json();  
-//     })
-//     .then(function(data) {
-//         console.log(data);
-
-
-//     });
-
-// };
-
-// http://api.openweathermap.org/data/2.5/forecast?lat=41.85&lon=-87.65&units=imperial&appid=9a565ccb47007a77932708dccfc031dd'
-
-
-
-// searchForm.addEventListener('submit', handleSearch);
-
-
-
-
-// var handleSearch = function(event) {
-//     event.preventDefault();
-//     var city = cityInput.value.trim();
-//     var apiURL = 'http://api.openweathermap.org/geo/1.0/direct?q='+ city +'&limit=5&appid=9a565ccb47007a77932708dccfc031dd';
-  
-//     fetch(apiURL)
-//       .then(function(response) {
-//         return response.json();  
-//       })
-//       .then(function(data) {
-//           for (let i = 0; i < data.length; i++) {
-//               var city=data[i].name;
-//               var state=data[i].state;
-              
-//               var possibleCity=document.createElement('div');
-//               var cityEl=document.createElement('h3');
-//               var stateEl=document.createElement('p');
-  
-//               cityEl.textContent = city;
-//               stateEl.textContent = state;
-//               possibleCity.appendChild(cityEl);
-//               possibleCity.append(stateEl);
-//               fiveDay.appendChild(possibleCity);
-  
-  
-  
-//           }
-  
-  
-//       });
-  
-//   };
-  
-
-
-
-// for (var i = 0; i < data.results.length; i++) {
-//     var result = data.results[i];
-//     var title = result.title;
-//     var url = result.url;
-//     var description = result?.description?.toString();
-
-//     var cardEl = document.createElement('div');
-//     var cardBody = document.createElement('div');
-//     var cardTitle = document.createElement('h3');
-//     var cardText = document.createElement('p');
-//     var cardLink = document.createElement('a');
-
-//     cardEl.className = 'card mb-3';
-//     cardBody.className = 'card-body';
-//     cardTitle.className = 'card-title';
-//     cardText.className = 'card-text';
-//     cardLink.className = 'btn btn-primary';
-
-//     cardTitle.textContent = title;
-//     cardText.textContent = description;
-//     cardLink.textContent = 'Read more';
-//     cardLink.href = url;
-//     cardLink.target = '_blank';
-
-//     cardEl.appendChild(cardBody);
-//     cardBody.append(cardTitle, cardText, cardLink);
-//     resultsContainer.appendChild(cardEl);
-
-
-//   var apiURL = 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&APPID=9a565ccb47007a77932708dccfc031dd';
-// var apiURL =   'http://api.openweathermap.org/data/2.5/forecast?lat=41.85&lon=-87.65&exclude=minutely,hourly,daily&appid=9a565ccb47007a77932708dccfc031dd';
