@@ -81,32 +81,57 @@ var FiveDayForecast= function(){
         var avgWind=0;
         var count = 0;
 
-        for (let i = 0; i < data.list.length; i+=count) {
-            count = 0;
+        for (let i = 0; i < data.list.length-1; i++) {
             var date = new Date(data.list[i].dt*1000).toDateString();
+            var compDate = new Date(data.list[i+1].dt*1000).toDateString();
+
+            console.log(date);
+            console.log(compDate);
+
+            if(date==compDate){
+                avgTemp+=data.list[i].main.temp
+                console.log("if");
+            }
+            else if(date != compDate)
+            {
+                //display
+                console.log("else if");
+                console.log(avgTemp/count);
+                console.log("new day");
+                avgTemp=0;
+                count=0;
+            }
+            else{
+                console.log("else");
+                console.log(avgTemp/count);
+                console.log("new day");
+                avgTemp=0;
+                count=0;
+            }
 
 
 
 
-            while(date == compDate){
-                var element= i+count;
-                var compDate = new Date(data.list[element].dt*1000).toDateString();
-                avgTemp+=data.list[element].main.temp;
-                avgHumid+=data.list[element].main.humidity;
-                avgWind+=data.list[element].wind.speed;
-                count++;
-                console.log(count);
-            };
+            // while(date == compDate){
+            //     var element= i+count;
+            //     var compDate = new Date(data.list[element].dt*1000).toDateString();
+            //     avgTemp+=data.list[element].main.temp;
+            //     avgHumid+=data.list[element].main.humidity;
+            //     avgWind+=data.list[element].wind.speed;
+            //     count++;
+            //     console.log(count);
+            // }
 
 
             // console.log(data.list[i].main.temp); 
             // console.log(data.list[i].main.humidity); 
             // console.log(data.list[i].wind.speed); 
 
-            console.log(avgTemp);
-            console.log(avgHumid);
-            console.log(avgWind);
+            // console.log(avgTemp);
+            // console.log(avgHumid);
+            // console.log(avgWind);
 
+            count++
         };
 
 
