@@ -80,107 +80,33 @@ var FiveDayForecast= function(){
         var avgHumid=0;
         var avgWind=0;
         var count = 0;
+        // data.list.length-1
 
-        for (let i = 0; i < data.list.length-1; i++) {
-            var date = new Date(data.list[i].dt*1000).toDateString();
-            var compDate = new Date(data.list[i+1].dt*1000).toDateString();
-
-            console.log(date);
-            console.log(compDate);
-
-            if(date!=compDate ){
-                avgTemp+=data.list[i].main.temp
-                console.log(avgTemp/count);
-                console.log("new day");
-                avgTemp=0;
-                count=0;
-            }
-            else if(date == compDate)
-            {
-                avgTemp+=data.list[i].main.temp
-            }
-            else if(i == data.list.length-1){
-                console.log("else");
-                console.log(avgTemp/count);
-                console.log("new day");
-                avgTemp=0;
-                count=0;
-            }
-
-
-
-
-
-
-            // if(date==compDate){
-            //     avgTemp+=data.list[i].main.temp
-            //     console.log("if");
-            // }
-            // else if(date != compDate)
-            // {
-            //     //display
-            //     console.log("else if");
-            //     console.log(avgTemp/count);
-            //     console.log("new day");
-            //     avgTemp=0;
-            //     count=0;
-            // }
-            // else{
-            //     console.log("else");
-            //     console.log(avgTemp/count);
-            //     console.log("new day");
-            //     avgTemp=0;
-            //     count=0;
-            // }
-
-
-
-
-            // while(date == compDate){
-            //     var element= i+count;
-            //     var compDate = new Date(data.list[element].dt*1000).toDateString();
-            //     avgTemp+=data.list[element].main.temp;
-            //     avgHumid+=data.list[element].main.humidity;
-            //     avgWind+=data.list[element].wind.speed;
-            //     count++;
-            //     console.log(count);
-            // }
-
-
-            // console.log(data.list[i].main.temp); 
-            // console.log(data.list[i].main.humidity); 
-            // console.log(data.list[i].wind.speed); 
-
-            // console.log(avgTemp);
-            // console.log(avgHumid);
-            // console.log(avgWind);
-
-            count++
-        };
-
-
-
-        // for (let i = 0; i < data.list.length; i+=count) {
-        //     average = 0;
+        // for (let i = 0; i < 38 ; i++) {
         //     var date = new Date(data.list[i].dt*1000).toDateString();
-        //     var compDate = new Date(data.list[i].dt*1000).toDateString();
-        //     count = 0;
+        //     var compDate = new Date(data.list[i+1].dt*1000).toDateString();
 
-        //     while(date == compDate) {
-        //         compDate = new Date(data.list[i+count].dt*1000).toDateString();
-        //         average+=data.list[i+count].main.humidity;
+        //     console.log(date);
+        //     console.log(compDate);
 
-        //         console.log(data.list[i+count].main.humidity);
+        //     if(date == compDate){
 
-        //         count++;
-    
+        //         avgTemp+=data.list[i].main.temp;
+
         //     }
+        //     else{
+        //         avgTemp+=data.list[i].main.temp;
+        //         console.log("else");
+        //         console.log(avgTemp/count);
+        //         console.log("new day");
+        //         avgTemp=0;
+        //         count=0;
 
-        //     console.log(count);
-        //     console.log(average/8);
-      
-        // }
+        //     }
+        //     count++;
 
+
+        };
 
 
 
