@@ -1,7 +1,7 @@
 var searchForm = document.querySelector('#search-form');
 var cityInput = document.querySelector('#citySearch');
 var cityInfo = document.querySelector('#cityInfo');
-var fiveDay = document.querySelector('#fiveDay');
+var fiveDay = document.querySelector('#five-day');
 var cityLat = 41.85;
 var cityLon= -87.65;
 
@@ -76,10 +76,65 @@ var FiveDayForecast= function(){
       .then(function(data) {
         console.log(data);
 
-        var avgTemp = 0;
-        var avgHumid=0;
-        var avgWind=0;
-        var count = 0;
+        
+
+        for (let i = 0; i < data.list.length; i++) {
+
+            var avgTemp = data.list[i].main.temp;
+            var avgHumid= data.list[i].main.humidity;
+            var avgWind= data.list[i].wind.speed;
+            var todaysDate=new Date(data.list[i].dt*1000);
+
+
+            var cardEl=document.createElement('div');
+            var cardBody=document.createElement('div');
+            var cardText= document.createElement('div');
+            var title=document.createElement('h3');
+            var date=document.createElement('h2');
+            var temp = document.createElement('p');
+            var wind = document.createElement('p');
+            var humidity = document.createElement('p');
+
+
+            
+            cardEl.className = 'card mb-3 col - 12 col - xl';
+            cardBody.className = 'card-body';
+            title.className = 'card-title';
+            cardText.className = 'card-text';
+            
+
+            title.textContent="5-Day Forecast:"
+            date.textContent =  todaysDate.toDateString();
+            temp.textContent = "Temp: "+avgTemp;
+            wind.textContent = "Wind Speed: "+avgWind+"MPH";
+            humidity.textContent = "Humidity: "+avgHumid+'%';
+
+            cardBody.append(date, temp, wind, humidity);
+            fiveDay.appendChild(cardBody);
+      
+        }
+
+
+
+
+
+
+        //h3 5-Day Forecast:
+
+        //card
+        //date
+        //symbol
+        //temp
+        //wind
+        //humidity
+
+
+
+
+
+
+
+
         // data.list.length-1
 
         // for (let i = 0; i < 38 ; i++) {
@@ -106,7 +161,7 @@ var FiveDayForecast= function(){
         //     count++;
 
 
-        };
+        // };
 
 
 
