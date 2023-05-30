@@ -88,18 +88,18 @@ var FiveDayForecast= function(){
             console.log(date);
             console.log(compDate);
 
-            if(date==compDate){
+            if(date!=compDate ){
                 avgTemp+=data.list[i].main.temp
                 console.log("if");
-            }
-            else if(date != compDate)
-            {
-                //display
-                console.log("else if");
                 console.log(avgTemp/count);
                 console.log("new day");
                 avgTemp=0;
                 count=0;
+            }
+            else if(date == compDate )
+            {
+                avgTemp+=data.list[i].main.temp
+                console.log("if");
             }
             else{
                 console.log("else");
@@ -108,6 +108,32 @@ var FiveDayForecast= function(){
                 avgTemp=0;
                 count=0;
             }
+
+
+
+
+
+
+            // if(date==compDate){
+            //     avgTemp+=data.list[i].main.temp
+            //     console.log("if");
+            // }
+            // else if(date != compDate)
+            // {
+            //     //display
+            //     console.log("else if");
+            //     console.log(avgTemp/count);
+            //     console.log("new day");
+            //     avgTemp=0;
+            //     count=0;
+            // }
+            // else{
+            //     console.log("else");
+            //     console.log(avgTemp/count);
+            //     console.log("new day");
+            //     avgTemp=0;
+            //     count=0;
+            // }
 
 
 
