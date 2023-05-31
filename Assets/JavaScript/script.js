@@ -11,7 +11,7 @@ let searchedCity = { lat: 0, lon: 0 };
 var getLatLon = function (event) {
     event.preventDefault();
     var city = cityInput.value.trim();
-    var apiURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=9a565ccb47007a77932708dccfc031dd`;
+    var apiURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=9a565ccb47007a77932708dccfc031dd`;
     fetch(apiURL)
         .then(function (response) {
             return response.json();
@@ -30,7 +30,7 @@ var getLatLon = function (event) {
 };
 //Weather api to give us the current weather conditions of the city
 var currentW = function () {
-    var apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&units=imperial&lastupdate&appid=9a565ccb47007a77932708dccfc031dd`;
+    var apiURL = `httpss://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&units=imperial&lastupdate&appid=9a565ccb47007a77932708dccfc031dd`;
     fetch(apiURL)
         .then(function (response) {
             return response.json();
@@ -50,7 +50,8 @@ var currentW = function () {
             var wind = document.createElement('p');
             var humidity = document.createElement('p');
             var icon = document.createElement('img');
-            icon.setAttribute('src', `https://openweathermap.org/img/wn/${curIcon}.png`)
+            current.classList ="bg-info";
+            icon.setAttribute('src', `httpss://openweathermap.org/img/wn/${curIcon}.png`)
             name.textContent = CityName + ' (' + dayjs(todaysDate).format('dddd MMM D') + ')';
             temp.textContent = "Temp: " + curTemp;
             wind.textContent = "Wind Speed: " + curWind + "MPH";
@@ -63,7 +64,7 @@ var currentW = function () {
 
 // Forcast api to give the weather for the next 5 days
 var FiveDayForecast = function () {
-    var apiURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=9a565ccb47007a77932708dccfc031dd`;
+    var apiURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=9a565ccb47007a77932708dccfc031dd`;
     fetch(apiURL)
         .then(function (response) {
             return response.json();
@@ -89,7 +90,7 @@ var FiveDayForecast = function () {
                 var wind = document.createElement('p');
                 var humidity = document.createElement('p');
                 var icon = document.createElement('img');
-                icon.setAttribute('src', `https://openweathermap.org/img/wn/${curIcon}.png`)
+                icon.setAttribute('src', `httpss://openweathermap.org/img/wn/${curIcon}.png`)
                 cardEl.className = 'card col - 12 col - xl';
                 cardBody.className = 'card-body bg-info';
                 title.className = 'card-title';
