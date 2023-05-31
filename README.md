@@ -15,3 +15,4 @@ https://github.com/Tazzok/5-Day-Weather-Forcast
 
 
 ## Usage
+![Page Demo](./assets/images/demo.gif)
