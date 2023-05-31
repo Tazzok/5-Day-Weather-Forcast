@@ -12,6 +12,7 @@ var getLatLon = function (event) {
     event.preventDefault();
     var city = cityInput.value.trim();
     var apiURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=9a565ccb47007a77932708dccfc031dd`;
+
     fetch(apiURL)
         .then(function (response) {
             return response.json();
